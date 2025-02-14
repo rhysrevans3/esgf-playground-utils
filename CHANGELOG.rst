@@ -6,8 +6,22 @@ All notable changes to this package are recorded in this document.
 This format is based on `Keep a ChangeLog <https://keepachangelog.com/>`_ and this project
 adheres to `Semantic Versioning <https://semver.org>`_.
 
-[Unreleased] - 2024-09-04
+[Unreleased] - 2025-02-14
 -------------------------
+
+`1.0.0 <https://github.com/ESGF/esgf-playground-utils/releases/tag/1.0.0>`_  - 2025-02-14
+-----------------------------------------------------------------------------------------
+
+Added
+^^^^^
+
+Changed
+^^^^^^^
+- Updated ESGFItemProperties to more accurate typing.
+- Updated Kafka Models in particular authorisation section.
+
+Removed
+^^^^^^^
 
 `0.3.8 <https://github.com/ESGF/esgf-playground-utils/releases/tag/0.3.8>`_  - 2024-11-19
 -----------------------------------------------------------------------------------------
