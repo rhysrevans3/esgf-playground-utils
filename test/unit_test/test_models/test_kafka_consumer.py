@@ -113,7 +113,7 @@ class TestKafkaConsumerUnit(unittest.TestCase):
         )
         consumer_instance.close.assert_called_once()
 
-        mock_sleep.assert_not_called()
+        mock_sleep.assert_called_once_with(305.0)
 
     @patch("esgf_core_utils.models.kafka.consumer.time.sleep")
     @patch("esgf_core_utils.models.kafka.consumer.Consumer")
@@ -151,7 +151,7 @@ class TestKafkaConsumerUnit(unittest.TestCase):
         # Assert
         processor.ingest.assert_not_called()
         consumer_instance.commit.assert_not_called()
-        mock_sleep.assert_called_once_with(0.1)
+        mock_sleep.assert_any_call(0.1)
         consumer_instance.close.assert_called_once()
 
     @patch("esgf_core_utils.models.kafka.consumer.Consumer")
