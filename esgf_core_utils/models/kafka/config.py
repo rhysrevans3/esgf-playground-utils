@@ -33,6 +33,7 @@ class KafkaConsumerConfig(KafkaConfig):
         default=False, alias="enable.auto.offset.store"
     )
     group_id: str = Field(alias="group.id")
+    group_instance_id: str | None = Field(default=None, alias="group.instance.id")
     session_timeout_ms: int = Field(default=45000, alias="session.timeout.ms")
     debug: str | None = None
     log_level: int | None = None
