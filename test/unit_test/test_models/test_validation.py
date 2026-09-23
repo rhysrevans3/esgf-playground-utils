@@ -153,7 +153,7 @@ class TestEvaluatePatch(unittest.TestCase):
         mock_validators.items.return_value = [
             (
                 "DELETE",
-                validator,
+                [validator],
             )
         ]
 
@@ -175,7 +175,7 @@ class TestEvaluatePatch(unittest.TestCase):
         mock_validators.items.return_value = [
             (
                 "DELETE",
-                validator,
+                [validator],
             )
         ]
 

@@ -387,7 +387,7 @@ class TestValidateExtensions(unittest.TestCase):
         validator.is_valid.return_value = True
 
         mock_validators.items.return_value = [
-            ("CREATE", validator),
+            ("CREATE", [validator]),
         ]
 
         self.assertEqual(
