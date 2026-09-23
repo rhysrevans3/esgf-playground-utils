@@ -1,6 +1,8 @@
+from typing import Any
+
 from jsonschema import Draft202012Validator
 
-PATCH_SCHEMAS = {
+PATCH_SCHEMAS: dict[str, list[dict[str, Any]]] = {
     "CITATION": [
         {
             "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -202,7 +204,7 @@ PATCH_SCHEMAS = {
     ],
 }
 
-PATCH_VALIDATORS: dict[str, Draft202012Validator] = {
+PATCH_VALIDATORS: dict[str, list[Draft202012Validator]] = {
     schema_name.upper(): [Draft202012Validator(schema) for schema in schemas]
     for schema_name, schemas in PATCH_SCHEMAS.items()
 }
