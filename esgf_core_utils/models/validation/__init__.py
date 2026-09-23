@@ -347,8 +347,8 @@ def evaluate_patch(
     """
     patch = patch_adapter.dump_python(patch)
 
-    for role, validator in PATCH_VALIDATORS.items():
-        if validator.is_valid(patch):
+    for role, validators in PATCH_VALIDATORS.items():
+        if any(validator.is_valid(patch) for validator in validators):
             return role
 
     return "UPDATE"
