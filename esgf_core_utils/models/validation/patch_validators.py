@@ -131,7 +131,6 @@ PATCH_SCHEMAS: dict[str, list[dict[str, Any]]] = {
             },
         },
         {
-            "$schema": "https://json-schema.org/draft/2020-12/schema",
             "title": "Append Assets Patch",
             "type": "array",
             "minItems": 1,
@@ -140,10 +139,7 @@ PATCH_SCHEMAS: dict[str, list[dict[str, Any]]] = {
                 "required": ["op", "path", "value"],
                 "properties": {
                     "op": {"const": "add"},
-                    "path": {
-                        "type": "string",
-                        "pattern": "^/assets/[^/]+$",
-                    },
+                    "path": {"type": "string", "pattern": "^/assets/[^/]+$"},
                     "value": {
                         "allOf": [
                             {"$ref": "#/definitions/require_asset_fields"},
@@ -151,53 +147,41 @@ PATCH_SCHEMAS: dict[str, list[dict[str, Any]]] = {
                         ]
                     },
                 },
+                "allOf": [
+                    {
+                        "if": {
+                            "properties": {
+                                "path": {"not": {"const": "/assets/CFA"}},
+                                "value": {
+                                    "properties": {
+                                        "type": {"const": "application/netcdf"}
+                                    },
+                                    "required": ["type"],
+                                },
+                            }
+                        },
+                        "then": {
+                            "properties": {
+                                "value": {
+                                    "required": [
+                                        "file:size",
+                                        "file:checksum",
+                                        "file:local_path",
+                                    ]
+                                }
+                            }
+                        },
+                    }
+                ],
                 "additionalProperties": False,
             },
             "definitions": {
                 "require_asset_fields": {
-                    "$comment": "Please list all fields here so that we can force the existence of one of them in other parts of the schemas.",
-                    "allOf": [
-                        {"required": ["created"]},
-                        {"required": ["protocol"]},
-                        {
-                            "if": {
-                                "properties": {"type": {"const": "application/netcdf"}},
-                                "required": ["type"],
-                            },
-                            "then": {
-                                "required": [
-                                    "file:size",
-                                    "file:checksum",
-                                    "file:local_path",
-                                ]
-                            },
-                        },
-                    ],
+                    "allOf": [{"required": ["created"]}, {"required": ["protocol"]}]
                 },
                 "asset_fields": {
-                    "$comment": " Don't require fields here, do that above in the corresponding schema.",
                     "type": "object",
-                    "properties": {
-                        "protocol": {
-                            "type": "string",
-                            "enum": [
-                                "http",
-                                "https",
-                                "globus",
-                                "gridftp",
-                                "kerchunk",
-                                "netcdfsubset",
-                                "opendap",
-                                "wms",
-                                "wps",
-                                "s3",
-                            ],
-                        },
-                        "cmip6:tracking_id": {
-                            "type": "string",
-                            "pattern": "^hdl:21\\.14100/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$",
-                        },
-                    },
+                    "properties": {"protocol": {"type": "string"}},
                 },
             },
         },
